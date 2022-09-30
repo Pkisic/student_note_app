@@ -37,23 +37,41 @@ class _MyHomePageState extends State<MyHomePage> {
               parent: AlwaysScrollableScrollPhysics()),
           slivers: [
             SliverAppBar(
-              floating: true,
-              flexibleSpace: const FlexibleSpaceBar(
-                title: Text('Notes'),
-                stretchModes: <StretchMode>[StretchMode.zoomBackground],
-                expandedTitleScale: 3,
-                titlePadding: EdgeInsets.only(left: 10, bottom: 20.0),
-              ),
-              expandedHeight: 200,
-              stretch: true,
+              floating: false,
               pinned: true,
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                )
-              ],
+              expandedHeight: 200,
               backgroundColor: Colors.black,
+              flexibleSpace: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  const SizedBox(
+                    width: 200,
+                    child: FlexibleSpaceBar(
+                      title: Text("Notes"),
+                      expandedTitleScale: 2,
+                    ),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {},
+                    color: Colors.white,
+                  ),
+                  PopupMenuButton(
+                    icon: const Icon(
+                      Icons.more_vert,
+                      color: Colors.white,
+                    ),
+                    itemBuilder: (context) {
+                      return const [
+                        PopupMenuItem(
+                          child: Text('About'),
+                        ),
+                      ];
+                    },
+                  )
+                ],
+              ),
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
@@ -75,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                 ),
-                childCount: 40,
+                childCount: 10,
               ),
             ),
           ],
