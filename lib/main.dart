@@ -45,7 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(
                     width: 200,
                     child: FlexibleSpaceBar(
-                      titlePadding: EdgeInsets.only(bottom: 30, left: 40),
                       title: Text("Notes"),
                       expandedTitleScale: 2,
                     ),
