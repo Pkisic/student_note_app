@@ -1,8 +1,9 @@
+import 'package:diplomski/services/auth/auth_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 
-class LocalAutApi {
+class LocalAutApi implements AuthProvider {
   final LocalAuthentication auth = LocalAuthentication();
 
   String _message = "Not Authorized";
@@ -28,5 +29,10 @@ class LocalAutApi {
           e.code == auth_error.permanentlyLockedOut) {
       } else {}
     }
+  }
+
+  @override
+  Future<void> initialize() {
+    throw UnimplementedError();
   }
 }
