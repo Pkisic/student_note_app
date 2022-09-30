@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'api/local_auth_api.dart';
 
 void main() {
   runApp(const MyApp());
@@ -52,7 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Spacer(),
                   IconButton(
                     icon: const Icon(Icons.search),
-                    onPressed: () {},
+                    onPressed: () {
+                      LocalAutApi().authenticateMe();
+                    },
                     color: Colors.white,
                   ),
                   PopupMenuButton(
