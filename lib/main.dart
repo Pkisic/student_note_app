@@ -31,49 +31,59 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
-        slivers: [
-          SliverAppBar(
-            title: const Text('Notes'),
-            floating: true,
-            flexibleSpace: const FlexibleSpaceBar(
-              stretchModes: <StretchMode>[StretchMode.fadeTitle],
+        backgroundColor: Colors.black,
+        body: CustomScrollView(
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              flexibleSpace: const FlexibleSpaceBar(
+                title: Text('Notes'),
+                stretchModes: <StretchMode>[StretchMode.zoomBackground],
+                expandedTitleScale: 3,
+                titlePadding: EdgeInsets.only(left: 10, bottom: 20.0),
+              ),
+              expandedHeight: 200,
+              stretch: true,
+              pinned: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {},
+                )
+              ],
+              backgroundColor: Colors.black,
             ),
-            expandedHeight: 200,
-            stretch: true,
-            pinned: true,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {},
-              )
-            ],
-            backgroundColor: Colors.blueGrey,
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => Card(
-                child: ListTile(
-                  title: Text('Item #$index'),
-                  subtitle: Text('Subtitle $index'),
-                  isThreeLine: true,
-                  tileColor: Colors.white,
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {},
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Card(
+                  child: ListTile(
+                    title: Text('Item #$index'),
+                    subtitle: Text('Subtitle $index'),
+                    isThreeLine: true,
+                    tileColor: Colors.blueGrey[900],
+                    textColor: Colors.white,
+                    iconColor: Colors.white,
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {},
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
                   ),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(300)),
+                      borderRadius: BorderRadius.circular(10)),
                 ),
+                childCount: 40,
               ),
-              childCount: 40,
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.add),
+          backgroundColor: Colors.orange[900],
+        ));
   }
 }
