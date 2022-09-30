@@ -12,16 +12,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: MyHomePage(title: 'My notes'),
+      title: 'Aplikacija za unos beleski',
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -47,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(
                     width: 200,
                     child: FlexibleSpaceBar(
+                      titlePadding: EdgeInsets.only(bottom: 30, left: 40),
                       title: Text("Notes"),
                       expandedTitleScale: 2,
                     ),
