@@ -19,7 +19,7 @@ class LocalAutApi {
     bool authenticated = false;
     try {
       authenticated = await auth.authenticate(
-          localizedReason: "localizedReason",
+          localizedReason: "Verification required to use the app",
           options: const AuthenticationOptions(useErrorDialogs: true));
     } on PlatformException catch (e) {
       print(e.code);
