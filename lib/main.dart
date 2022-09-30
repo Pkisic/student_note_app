@@ -1,5 +1,5 @@
+import 'package:diplomski/eums/menu_action.dart';
 import 'package:flutter/material.dart';
-import 'api/local_auth_api.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -53,9 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Spacer(),
                   IconButton(
                     icon: const Icon(Icons.search),
-                    onPressed: () {
-                      LocalAutApi().authenticateMe();
-                    },
+                    onPressed: () {},
                     color: Colors.white,
                   ),
                   PopupMenuButton(
@@ -65,8 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     itemBuilder: (context) {
                       return const [
-                        PopupMenuItem(
+                        PopupMenuItem<MenuAction>(
+                          value: MenuAction.about,
                           child: Text('About'),
+                        ),
+                        PopupMenuItem(
+                          value: MenuAction.settings,
+                          child: Text('Settings'),
                         ),
                       ];
                     },
