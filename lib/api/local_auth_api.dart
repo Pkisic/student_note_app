@@ -9,7 +9,9 @@ class LocalAutApi {
 
   Future<List<BiometricType>> checkingForBioMetrics() async {
     List<BiometricType> canCheck = await auth.getAvailableBiometrics();
+    bool c = await auth.isDeviceSupported();
     print(canCheck);
+    print(c);
     return canCheck;
   }
 
@@ -20,6 +22,7 @@ class LocalAutApi {
           localizedReason: "localizedReason",
           options: const AuthenticationOptions(useErrorDialogs: true));
     } on PlatformException catch (e) {
+      print(e.code);
       if (e.code == auth_error.notEnrolled) {
       } else if (e.code == auth_error.lockedOut ||
           e.code == auth_error.permanentlyLockedOut) {
