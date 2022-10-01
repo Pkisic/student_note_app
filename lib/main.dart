@@ -1,7 +1,7 @@
-import 'package:diplomski/api/local_auth_api.dart';
-import 'package:diplomski/services/bloc/auth_bloc.dart';
-import 'package:diplomski/services/bloc/auth_event.dart';
-import 'package:diplomski/services/bloc/auth_state.dart';
+import 'package:diplomski/services/auth/biometric_auth_provider.dart';
+import 'package:diplomski/services/auth/bloc/auth_bloc.dart';
+import 'package:diplomski/services/auth/bloc/auth_event.dart';
+import 'package:diplomski/services/auth/bloc/auth_state.dart';
 import 'package:diplomski/views/notes_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
