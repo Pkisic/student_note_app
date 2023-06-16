@@ -1,6 +1,6 @@
-# diplomski
+# Diplomski rad Viser Predrag Kisic NRT-168/16
 
-A new Flutter project.
+Aplikacija za cuvanje beleski
 
 ## Getting Started
 
