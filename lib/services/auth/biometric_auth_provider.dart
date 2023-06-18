@@ -6,7 +6,7 @@ import 'package:local_auth/local_auth.dart';
 class LocalAutApi implements AuthProvider {
   final LocalAuthentication auth = LocalAuthentication();
 
-  String _message = "Not Authorized";
+  final String _message = "Not Authorized";
 
   Future<List<BiometricType>> checkingForBioMetrics() async {
     List<BiometricType> canCheck = await auth.getAvailableBiometrics();

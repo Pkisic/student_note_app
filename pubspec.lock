@@ -13,10 +13,10 @@ packages:
     dependency: "direct main"
     description:
       name: bloc
-      sha256: bd4f8027bfa60d96c8046dec5ce74c463b2c918dce1b0d36593575995344534a
+      sha256: "3820f15f502372d979121de1f6b97bfcf1630ebff8fe1d52fb2b0bfa49be5b49"
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.0"
+    version: "8.1.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -74,26 +74,26 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_bloc
-      sha256: "890c51c8007f0182360e523518a0c732efb89876cb4669307af7efada5b55557"
+      sha256: e74efb89ee6945bcbce74a5b3a5a3376b088e5f21f55c263fc38cbdc6237faae
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.1"
+    version: "8.1.3"
   flutter_lints:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: b543301ad291598523947dc534aaddc5aaad597b709d2426d3a0e0d44c5cb493
+      sha256: aeb0b80a8b3709709c9cc496cdc027c5b3216796bc0af0ce1007eaf24464fd4c
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "2.0.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "60fc7b78455b94e6de2333d2f95196d32cf5c22f4b0b0520a628804cb463503b"
+      sha256: "950e77c2bbe1692bc0874fc7fb491b96a4dc340457f4ea1641443d0a6c1ea360"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.7"
+    version: "2.0.15"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -103,10 +103,10 @@ packages:
     dependency: transitive
     description:
       name: intl
-      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.0"
+    version: "0.18.1"
   js:
     dependency: transitive
     description:
@@ -119,50 +119,50 @@ packages:
     dependency: transitive
     description:
       name: lints
-      sha256: a2c3d198cb5ea2e179926622d433331d8b58374ab8f29cdda6e863bd62fd369c
+      sha256: "0a217c6c989d21039f1498c3ed9f3ed71b354e69873f13a8dfc3c9fe76f1b452"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "2.1.1"
   local_auth:
     dependency: "direct main"
     description:
       name: local_auth
-      sha256: "792b06b9e7deb52f1f55b5de678a319261c395e61d804e0f3f97c732cf002aef"
+      sha256: "0cf238be2bfa51a6c9e7e9cfc11c05ea39f2a3a4d3e5bb255d0ebc917da24401"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.6"
   local_auth_android:
     dependency: transitive
     description:
       name: local_auth_android
-      sha256: f7450d26d626864d865018e7cb5d18a311b6b7a60853e8f73f9c879c05d0fd9a
+      sha256: "36a78898198386d36d4e152b8cb46059b18f0e2017f813a0e833e216199f8950"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.13"
+    version: "1.0.32"
   local_auth_ios:
     dependency: transitive
     description:
       name: local_auth_ios
-      sha256: "0f1aa3fd625082b2a8291af830890bb43471d8421ab5c46934ca68a696743543"
+      sha256: edc2977c5145492f3451db9507a2f2f284ee4f408950b3e16670838726761940
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.10"
+    version: "1.1.3"
   local_auth_platform_interface:
     dependency: transitive
     description:
       name: local_auth_platform_interface
-      sha256: b069647f81ed12c833d3f1f7c2880e20b86ca04429e786df76731ac2d4220c47
+      sha256: "9e160d59ef0743e35f1b50f4fb84dc64f55676b1b8071e319ef35e7f3bc13367"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.7"
   local_auth_windows:
     dependency: transitive
     description:
       name: local_auth_windows
-      sha256: "53ef7487587e1cb06755861a9a74585b3b361ba1969ad374c728c75771a14fbb"
+      sha256: "19323b75ab781d5362dbb15dcb7e0916d2431c7a6dbdda016ec9708689877f73"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.8"
   matcher:
     dependency: transitive
     description:
@@ -207,18 +207,18 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: dbf0f707c78beedc9200146ad3cb0ab4d5da13c246336987be6940f026500d3a
+      sha256: "6a2128648c854906c53fa8e33986fc0247a1116122f9534dd20e3ab9e16a32bc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.3"
+    version: "2.1.4"
   provider:
     dependency: transitive
     description:
       name: provider
-      sha256: "8d7d4c2df46d6a6270a4e10404bfecb18a937e3e00f710c260d0a10415ce6b7b"
+      sha256: cdbe7530b12ecd9eb455bdaa2fcb8d4dad22e80b8afb4798b41479d5ce26847f
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.3"
+    version: "6.0.5"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -281,5 +281,5 @@ packages:
     source: hosted
     version: "2.1.4"
 sdks:
-  dart: ">=3.0.0-0 <4.0.0"
-  flutter: ">=2.10.0"
+  dart: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"

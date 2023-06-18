@@ -15,7 +15,7 @@ void main() {
       create: (context) => AuthBlock(LocalAutApi()),
       child: const HomePage(),
     ),
-    routes: {},
+    routes: const {},
   ));
 }
 

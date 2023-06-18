@@ -62,6 +62,8 @@ class _NotesViewState extends State<NotesView> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) => Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   child: ListTile(
                     title: Text('Item #$index'),
                     subtitle: Text('Subtitle $index'),
@@ -76,8 +78,6 @@ class _NotesViewState extends State<NotesView> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
                 ),
                 childCount: 10,
               ),
@@ -86,8 +86,8 @@ class _NotesViewState extends State<NotesView> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
-          child: const Icon(Icons.add),
           backgroundColor: Colors.orange[900],
+          child: const Icon(Icons.add),
         ));
   }
 }
