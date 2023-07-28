@@ -21,7 +21,7 @@ class NotesListView extends StatelessWidget {
           ),
           child: ListTile(
             title: Text(note.title),
-            subtitle: Text(note.text),
+            subtitle: Text("$note"),
             isThreeLine: true,
             tileColor: Colors.blueGrey[900],
             textColor: Colors.white,

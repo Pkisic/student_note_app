@@ -68,9 +68,15 @@ class NotesService {
       categoryColumn: 1,
     });
 
-    final note = Note(id: noteId, title: title, text: text);
+    final note = Note(
+      id: noteId,
+      title: title,
+      text: text,
+    );
 
     _notes.add(note);
+    _notesStreamController.add(_notes);
+
     return note;
   }
 
@@ -81,9 +87,18 @@ class NotesService {
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
+
     await getNote(id: note.id);
-    final updatesCount =
-        await db.update(notesTable, {textColumn: text, titleColumn: title});
+
+    final updatesCount = await db.update(
+      notesTable,
+      {
+        textColumn: text,
+        titleColumn: title,
+      },
+      where: 'id = ?',
+      whereArgs: [note.id],
+    );
     if (updatesCount == 0) {
       throw Exception('Could not update');
     } else {
@@ -154,10 +169,8 @@ class NotesService {
       final dbPath = join(docsPath.path, dbName);
       final db = await openDatabase(dbPath);
       _db = db;
-
-      //create user table
+      //create tables
       await db.execute(createCategoryTable);
-      //create note table
       await db.execute(createNotesTable);
       //notes
       await _cacheNotes();
