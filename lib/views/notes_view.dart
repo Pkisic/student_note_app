@@ -1,4 +1,5 @@
 import 'package:diplomski/eums/menu_action.dart';
+import 'package:diplomski/views/create_update_note_view.dart';
 import 'package:flutter/material.dart';
 
 class NotesView extends StatefulWidget {
@@ -73,10 +74,20 @@ class _NotesViewState extends State<NotesView> {
                     iconColor: Colors.white,
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () {},
+                      onPressed: () {
+                        final snack = SnackBar(
+                          content: const Text('Note deleted!'),
+                          action: SnackBarAction(
+                            label: 'Undo',
+                            onPressed: () {},
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snack);
+                      },
                     ),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
                 childCount: 10,
@@ -85,7 +96,13 @@ class _NotesViewState extends State<NotesView> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const CreateUpdateNoteView(),
+              ),
+            );
+          },
           backgroundColor: Colors.orange[900],
           child: const Icon(Icons.add),
         ));
