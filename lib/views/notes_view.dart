@@ -58,12 +58,13 @@ class _NotesViewState extends State<NotesView> {
                       color: Colors.white,
                     ),
                     itemBuilder: (context) {
-                      return const [
+                      return [
                         PopupMenuItem<MenuAction>(
                           value: MenuAction.about,
-                          child: Text('About'),
+                          child: const Text('About'),
+                          onTap: () => _notesService.deleteDB(),
                         ),
-                        PopupMenuItem(
+                        const PopupMenuItem(
                           value: MenuAction.settings,
                           child: Text('Settings'),
                         ),
@@ -84,11 +85,13 @@ class _NotesViewState extends State<NotesView> {
                       return NotesListView(notes: allNotes);
                     } else {
                       return const SliverToBoxAdapter(
-                          child: CircularProgressIndicator());
+                        child: CircularProgressIndicator(),
+                      );
                     }
                   default:
                     return const SliverToBoxAdapter(
-                        child: CircularProgressIndicator());
+                      child: CircularProgressIndicator(),
+                    );
                 }
               },
             ),

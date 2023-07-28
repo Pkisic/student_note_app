@@ -165,6 +165,19 @@ class NotesService {
       throw Exception('Unable to get documents directory');
     }
   }
+
+  Future<void> deleteDB() async {
+    if (_db == null) {
+      throw Exception('Database already null');
+    }
+    try {
+      final docsPath = await getApplicationDocumentsDirectory();
+      final dbPath = join(docsPath.path, dbName);
+      await deleteDatabase(dbPath);
+    } on Exception {
+      //nada
+    }
+  }
 }
 
 const dbName = 'notes.db';
@@ -181,17 +194,16 @@ CREATE TABLE IF NOT EXISTS "notes" (
   "id"	INTEGER NOT NULL,
 	"text"	TEXT NOT NULL,
 	"title"	TEXT NOT NULL,
-	"category_id"	INTEGER NOT NULL,
-	PRIMARY KEY("id")
-  FOREIGN KEY("category_id") REFERENCES "categories"("id")
+	"category_id"	INTEGER,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 ''';
 const createCategoryTable = '''
 CREATE TABLE IF NOT EXISTS "categories" (
-  "id" INTEGET NOT NULL,
-  "color" INTEGER NOT NULL,
-  "name" TEXT NOT NULL,
-  "description" TEXT,
-  PRIMARY KEY ("id")
+	"id"	INTEGER NOT NULL,
+	"color"	INTEGER NOT NULL,
+	"name"	TEXT NOT NULL,
+	"description"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 ''';
