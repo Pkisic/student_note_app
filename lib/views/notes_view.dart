@@ -1,5 +1,8 @@
 import 'package:diplomski/eums/menu_action.dart';
+import 'package:diplomski/models/note.dart';
+import 'package:diplomski/services/notes_service.dart';
 import 'package:diplomski/views/create_update_note_view.dart';
+import 'package:diplomski/views/notes_list_view.dart';
 import 'package:flutter/material.dart';
 
 class NotesView extends StatefulWidget {
@@ -10,13 +13,23 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
+  late final NotesService _notesService;
+
+  @override
+  void initState() {
+    _notesService = NotesService();
+    _notesService.open();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
         body: CustomScrollView(
           physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
           slivers: [
             SliverAppBar(
               floating: false,
@@ -60,38 +73,24 @@ class _NotesViewState extends State<NotesView> {
                 ],
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ListTile(
-                    title: Text('Item #$index'),
-                    subtitle: Text('Subtitle $index'),
-                    isThreeLine: true,
-                    tileColor: Colors.blueGrey[900],
-                    textColor: Colors.white,
-                    iconColor: Colors.white,
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        final snack = SnackBar(
-                          content: const Text('Note deleted!'),
-                          action: SnackBarAction(
-                            label: 'Undo',
-                            onPressed: () {},
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snack);
-                      },
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                childCount: 10,
-              ),
+            StreamBuilder(
+              stream: _notesService.allNotes,
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    if (snapshot.hasData) {
+                      final allNotes = snapshot.data as List<Note>;
+                      return NotesListView(notes: allNotes);
+                    } else {
+                      return const SliverToBoxAdapter(
+                          child: CircularProgressIndicator());
+                    }
+                  default:
+                    return const SliverToBoxAdapter(
+                        child: CircularProgressIndicator());
+                }
+              },
             ),
           ],
         ),
