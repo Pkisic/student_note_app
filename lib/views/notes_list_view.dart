@@ -22,39 +22,59 @@ class NotesListView extends StatelessWidget {
       itemCount: notes.length,
       itemBuilder: (context, index) {
         final note = notes[index];
-        return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: ListTile(
-            onTap: () {
-              onTap(note);
-            },
-            title: Text(note.title),
-            subtitle: Text(note.text),
-            isThreeLine: true,
-            tileColor: Colors.blueGrey[900],
-            textColor: Colors.white,
-            iconColor: Colors.white,
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () async {
-                final shouldDelete = await showDeleteDialog(context);
-                if (shouldDelete) {
-                  onDeleteNote(note);
-                }
-                final snack = SnackBar(
-                  content: const Text('Note deleted!'),
-                  action: SnackBarAction(
-                    label: 'Undo',
-                    onPressed: () {},
-                  ),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snack);
-              },
+        return Dismissible(
+          key: Key(note.toString()),
+          onDismissed: (direction) {
+            if ((direction == DismissDirection.startToEnd)) {
+              onDeleteNote(note);
+              final snack = SnackBar(
+                content: const Text('Note deleted!'),
+                action: SnackBarAction(
+                  label: 'Undo',
+                  onPressed: () {},
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snack);
+            } else {}
+          },
+          confirmDismiss: (direction) async {
+            if ((direction == DismissDirection.startToEnd)) {
+              return await showDeleteDialog(context);
+            } else {
+              return false;
+            }
+          },
+          background: Container(
+            color: Colors.red,
+            child: const Icon(
+              Icons.delete,
+              color: Colors.white,
             ),
+          ),
+          secondaryBackground: Container(
+            color: Colors.green,
+            child: const Icon(
+              Icons.archive,
+              color: Colors.white,
+            ),
+          ),
+          child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
+            ),
+            child: ListTile(
+              onTap: () {
+                onTap(note);
+              },
+              title: Text(note.title),
+              subtitle: Text(note.text),
+              isThreeLine: true,
+              tileColor: Colors.blueGrey[900],
+              textColor: Colors.white,
+              iconColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
           ),
         );

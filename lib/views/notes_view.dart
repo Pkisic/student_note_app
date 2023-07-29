@@ -25,102 +25,102 @@ class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
-        body: CustomScrollView(
-          physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics(),
-          ),
-          slivers: [
-            SliverAppBar(
-              floating: false,
-              pinned: true,
-              expandedHeight: 200,
-              backgroundColor: Colors.black,
-              flexibleSpace: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  const SizedBox(
-                    width: 200,
-                    child: FlexibleSpaceBar(
-                      title: Text("Notes"),
-                      expandedTitleScale: 2,
-                    ),
+      backgroundColor: Colors.black,
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        slivers: [
+          SliverAppBar(
+            floating: false,
+            pinned: true,
+            expandedHeight: 200,
+            backgroundColor: Colors.black,
+            flexibleSpace: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                const SizedBox(
+                  width: 200,
+                  child: FlexibleSpaceBar(
+                    title: Text("Notes"),
+                    expandedTitleScale: 2,
                   ),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () {},
+                ),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {},
+                  color: Colors.white,
+                ),
+                PopupMenuButton(
+                  icon: const Icon(
+                    Icons.more_vert,
                     color: Colors.white,
                   ),
-                  PopupMenuButton(
-                    icon: const Icon(
-                      Icons.more_vert,
-                      color: Colors.white,
-                    ),
-                    itemBuilder: (context) {
-                      return [
-                        PopupMenuItem<MenuAction>(
-                          value: MenuAction.about,
-                          child: const Text('About'),
-                          onTap: () => _notesService.deleteDB(),
-                        ),
-                        const PopupMenuItem(
-                          value: MenuAction.settings,
-                          child: Text('Settings'),
-                        ),
-                      ];
-                    },
-                  )
-                ],
-              ),
+                  itemBuilder: (context) {
+                    return [
+                      PopupMenuItem<MenuAction>(
+                        value: MenuAction.about,
+                        child: const Text('About'),
+                        onTap: () => _notesService.deleteDB(),
+                      ),
+                      const PopupMenuItem(
+                        value: MenuAction.settings,
+                        child: Text('Settings'),
+                      ),
+                    ];
+                  },
+                )
+              ],
             ),
-            StreamBuilder(
-              stream: _notesService.allNotes,
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                  case ConnectionState.active:
-                    if (snapshot.hasData) {
-                      final allNotes = snapshot.data as List<Note>;
-                      return NotesListView(
-                        notes: allNotes,
-                        onDeleteNote: (Note note) async {
-                          await _notesService.deleteNote(id: note.id);
-                        },
-                        onTap: (Note note) {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const CreateUpdateNoteView(),
-                              settings: RouteSettings(arguments: note),
-                            ),
-                          );
-                        },
-                      );
-                    } else {
-                      return const SliverToBoxAdapter(
-                        child: LinearProgressIndicator(),
-                      );
-                    }
-                  default:
+          ),
+          StreamBuilder(
+            stream: _notesService.allNotes,
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                case ConnectionState.active:
+                  if (snapshot.hasData) {
+                    final allNotes = snapshot.data as List<Note>;
+                    return NotesListView(
+                      notes: allNotes,
+                      onDeleteNote: (Note note) async {
+                        await _notesService.deleteNote(id: note.id);
+                      },
+                      onTap: (Note note) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const CreateUpdateNoteView(),
+                            settings: RouteSettings(arguments: note),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
                     return const SliverToBoxAdapter(
                       child: LinearProgressIndicator(),
                     );
-                }
-              },
+                  }
+                default:
+                  return const SliverToBoxAdapter(
+                    child: LinearProgressIndicator(),
+                  );
+              }
+            },
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const CreateUpdateNoteView(),
             ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const CreateUpdateNoteView(),
-              ),
-            );
-          },
-          backgroundColor: Colors.orange[900],
-          child: const Icon(Icons.add),
-        ));
+          );
+        },
+        backgroundColor: Colors.orange[900],
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }

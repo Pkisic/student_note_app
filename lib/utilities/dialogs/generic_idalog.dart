@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 typedef DialogOptionBuilder<T> = Map<String, T?> Function();
 
-Future<T?> showGenericdialog<T>({
-  required BuildContext context,
-  required String title,
-  required String content,
-  required DialogOptionBuilder optionBuilder,
-}) {
+Future<T?> showGenericdialog<T>(
+    {required BuildContext context,
+    required String title,
+    required String content,
+    required DialogOptionBuilder optionBuilder,
+    required Icon contentIcon}) {
   final options = optionBuilder();
   return showDialog<T>(
     context: context,
@@ -15,6 +15,8 @@ Future<T?> showGenericdialog<T>({
       return AlertDialog(
         title: Text(title),
         content: Text(content),
+        icon: contentIcon,
+        iconColor: Colors.amber,
         actions: options.keys.map((optionTitle) {
           final value = options[optionTitle];
           return TextButton(
