@@ -81,15 +81,28 @@ class _NotesViewState extends State<NotesView> {
                   case ConnectionState.active:
                     if (snapshot.hasData) {
                       final allNotes = snapshot.data as List<Note>;
-                      return NotesListView(notes: allNotes);
+                      return NotesListView(
+                        notes: allNotes,
+                        onDeleteNote: (Note note) async {
+                          await _notesService.deleteNote(id: note.id);
+                        },
+                        onTap: (Note note) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const CreateUpdateNoteView(),
+                            ),
+                          );
+                        },
+                      );
                     } else {
                       return const SliverToBoxAdapter(
-                        child: CircularProgressIndicator(),
+                        child: LinearProgressIndicator(),
                       );
                     }
                   default:
                     return const SliverToBoxAdapter(
-                      child: CircularProgressIndicator(),
+                      child: LinearProgressIndicator(),
                     );
                 }
               },
