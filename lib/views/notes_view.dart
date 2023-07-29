@@ -18,6 +18,7 @@ class _NotesViewState extends State<NotesView> {
   @override
   void initState() {
     _notesService = NotesService();
+    _notesService.open();
     super.initState();
   }
 
@@ -91,6 +92,7 @@ class _NotesViewState extends State<NotesView> {
                             MaterialPageRoute(
                               builder: (context) =>
                                   const CreateUpdateNoteView(),
+                              settings: RouteSettings(arguments: note),
                             ),
                           );
                         },
