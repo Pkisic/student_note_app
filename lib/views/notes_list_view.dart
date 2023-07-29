@@ -1,4 +1,5 @@
 import 'package:diplomski/models/note.dart';
+import 'package:diplomski/utilities/dialogs/archive_dialog.dart';
 import 'package:diplomski/utilities/dialogs/delete_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class NotesListView extends StatelessWidget {
         return Dismissible(
           key: Key(note.toString()),
           onDismissed: (direction) {
-            if ((direction == DismissDirection.startToEnd)) {
+            if (direction == DismissDirection.startToEnd) {
               onDeleteNote(note);
               final snack = SnackBar(
                 content: const Text('Note deleted!'),
@@ -38,10 +39,10 @@ class NotesListView extends StatelessWidget {
             } else {}
           },
           confirmDismiss: (direction) async {
-            if ((direction == DismissDirection.startToEnd)) {
+            if (direction == DismissDirection.startToEnd) {
               return await showDeleteDialog(context);
             } else {
-              return false;
+              return await showArchiveDialog(context);
             }
           },
           background: Container(
