@@ -46,16 +46,37 @@ class NotesListView extends StatelessWidget {
           },
           background: Container(
             color: Colors.red,
-            child: const Icon(
-              Icons.delete,
-              color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'Delete note',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  )
+                ],
+              ),
             ),
           ),
           secondaryBackground: Container(
             color: Colors.green,
-            child: const Icon(
-              Icons.archive,
-              color: Colors.white,
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(
+                    Icons.archive,
+                    color: Colors.white,
+                  ),
+                  Text('Move to archive'),
+                ],
+              ),
             ),
           ),
           child: Card(
