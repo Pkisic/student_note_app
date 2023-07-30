@@ -200,7 +200,11 @@ const categoriesTable = "categories";
 const idColumn = "id";
 const titleColumn = "title";
 const textColumn = "text";
+
 const categoryColumn = "category_id";
+const colorColumn = "color";
+const nameColumn = "name";
+const descriptionColumn = "description";
 
 const createNotesTable = '''
 CREATE TABLE IF NOT EXISTS "notes" (
