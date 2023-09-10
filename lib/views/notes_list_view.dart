@@ -1,4 +1,6 @@
+import 'package:diplomski/models/category.dart';
 import 'package:diplomski/models/note.dart';
+import 'package:diplomski/services/notes_service.dart';
 import 'package:diplomski/utilities/dialogs/archive_dialog.dart';
 import 'package:diplomski/utilities/dialogs/delete_dialog.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,10 @@ class NotesListView extends StatelessWidget {
   final List<Note> notes;
   final NoteCallback onDeleteNote;
   final NoteCallback onTap;
+
+  Future<Category> getCategory(int id) async {
+    return await NotesService().getCategory(id: id);
+  }
 
   const NotesListView({
     Key? key,
@@ -94,6 +100,19 @@ class NotesListView extends StatelessWidget {
               tileColor: Colors.blueGrey[900],
               textColor: Colors.white,
               iconColor: Colors.white,
+              trailing: SizedBox(
+                height: 50,
+                width: 10,
+                child: FutureBuilder(
+                    future: getCategory(note.category),
+                    builder: (context, snapshot) {
+                      return Container(
+                        color: snapshot.hasData
+                            ? (snapshot.data as Category).color
+                            : Colors.white,
+                      );
+                    }),
+              ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
