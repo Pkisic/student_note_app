@@ -49,7 +49,12 @@ class _NotesViewState extends State<NotesView> {
                 const Spacer(),
                 IconButton(
                   icon: const Icon(Icons.search),
-                  onPressed: () {},
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: CustomSearchDelegate(),
+                    );
+                  },
                   color: Colors.white,
                 ),
                 PopupMenuButton(
@@ -122,5 +127,39 @@ class _NotesViewState extends State<NotesView> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.clear),
+      ),
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(Icons.arrow_back),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Text('no data');
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Text('no data');
   }
 }

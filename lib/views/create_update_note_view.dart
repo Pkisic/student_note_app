@@ -74,7 +74,6 @@ class CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     if (existingNote != null) {
       return existingNote;
     }
-    print('create note');
     final newNote = await _notesService.createNote(
       text: '',
       title: '',
