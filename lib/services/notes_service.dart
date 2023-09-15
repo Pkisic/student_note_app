@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:diplomski/models/note.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
@@ -36,6 +35,13 @@ class NotesService {
   Stream<List<Note>> get allNotes => _notesStreamController.stream;
   Stream<List<Category>> get allCategories =>
       _categoriesStreamController.stream;
+
+  Future<List<Note>> getTheNotes(String query) async {
+    await _ensureDbIsOpen();
+    final db = _getDatabaseOrThrow();
+    final searchResults = await db.rawQuery("$searchQuery'*$query*'");
+    return searchResults.map((noteRow) => Note.fromRow(noteRow)).toList();
+  }
 
   Future<Iterable<Note>> getAllNotes() async {
     await _ensureDbIsOpen();
@@ -260,6 +266,16 @@ class NotesService {
       try {
         await db.execute(createDefaultCategoy);
       } on Exception {}
+      //add search modifiers
+      try {
+        await db.execute(createSearchTable);
+        await db.execute(insertInitialSearchData);
+        await db.execute(createInsertTrigger);
+        await db.execute(createUpdateTrigger);
+        await db.execute(createDeleteTrigger);
+      } on Exception {
+        print('Exception search tables');
+      }
       //notes
       await _cacheNotes();
     } on MissingPlatformDirectoryException {
@@ -284,6 +300,7 @@ class NotesService {
 const dbName = 'notes.db';
 const notesTable = "notes";
 const categoriesTable = "categories";
+const searchTable = "term_table";
 
 const idColumn = "id";
 const titleColumn = "title";
@@ -316,4 +333,54 @@ CREATE TABLE IF NOT EXISTS "categories" (
 const createDefaultCategoy = '''
 INSERT INTO categories (id, name, description, color)
 VALUES(-1,'Uncategorized','Uncategorized',4278190080);
+''';
+
+const createSearchTable = '''
+CREATE VIRTUAL TABLE term_table
+USING FTS4(id,text,title);
+''';
+
+const insertInitialSearchData = '''
+INSERT INTO term_table(id, text, title)
+SELECT
+  id,
+  text,
+  title
+FROM notes;
+''';
+
+const createInsertTrigger = '''
+CREATE TRIGGER insert_term_table
+  after insert on notes
+begin
+  insert into term_table(id, text, title)
+  values(new.id, new.text, new.title);
+end;
+''';
+
+const createUpdateTrigger = '''
+CREATE TRIGGER update_term_table
+  after update on notes
+begin
+  update term_table
+  set text = new.text,
+      title = new.title
+  where id = new.id;
+end;
+''';
+
+const createDeleteTrigger = '''
+CREATE TRIGGER delete_term_table
+  after delete on notes
+begin
+  DELETE FROM term_table
+  WHERE id = OLD.id;
+end;
+''';
+
+const searchQuery = '''
+SELECT *
+FROM term_table tt
+INNER JOIN notes n on tt.id = n.id
+WHERE term_table MATCH 
 ''';

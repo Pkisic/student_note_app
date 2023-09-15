@@ -3,6 +3,7 @@ import 'package:diplomski/models/note.dart';
 import 'package:diplomski/services/notes_service.dart';
 import 'package:diplomski/views/create_update_note_view.dart';
 import 'package:diplomski/views/notes_list_view.dart';
+import 'package:diplomski/views/notes_search_result_view.dart';
 import 'package:flutter/material.dart';
 
 class NotesView extends StatefulWidget {
@@ -84,6 +85,9 @@ class _NotesViewState extends State<NotesView> {
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
+                  return const SliverToBoxAdapter(
+                    child: LinearProgressIndicator(),
+                  );
                 case ConnectionState.active:
                   if (snapshot.hasData) {
                     final allNotes = snapshot.data as List<Note>;
@@ -131,6 +135,8 @@ class _NotesViewState extends State<NotesView> {
 }
 
 class CustomSearchDelegate extends SearchDelegate {
+  final NotesService _notesService = NotesService();
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -160,6 +166,32 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text('no data');
+    return FutureBuilder(
+      future: _notesService.getTheNotes(query),
+      builder: (context, snapshot) {
+        print(snapshot.connectionState);
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const LinearProgressIndicator();
+          case ConnectionState.active:
+            if (snapshot.hasData) {
+              final allNotes = snapshot.data as List<Note>;
+              return NotesSearchResultView(notes: allNotes);
+            } else {
+              return const LinearProgressIndicator();
+            }
+          case ConnectionState.done:
+            if (snapshot.hasData) {
+              print("Snapshot has Data '${snapshot.data}'");
+              final allNotes = snapshot.data as List<Note>;
+              return NotesSearchResultView(notes: allNotes);
+            } else {
+              return const Text('No results');
+            }
+          default:
+            return const LinearProgressIndicator();
+        }
+      },
+    );
   }
 }
