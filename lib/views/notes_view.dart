@@ -169,22 +169,26 @@ class CustomSearchDelegate extends SearchDelegate {
     return FutureBuilder(
       future: _notesService.getTheNotes(query),
       builder: (context, snapshot) {
-        print(snapshot.connectionState);
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return const LinearProgressIndicator();
           case ConnectionState.active:
             if (snapshot.hasData) {
               final allNotes = snapshot.data as List<Note>;
-              return NotesSearchResultView(notes: allNotes);
+              return NotesSearchResultView(
+                notes: allNotes,
+                query: query,
+              );
             } else {
               return const LinearProgressIndicator();
             }
           case ConnectionState.done:
             if (snapshot.hasData) {
-              print("Snapshot has Data '${snapshot.data}'");
               final allNotes = snapshot.data as List<Note>;
-              return NotesSearchResultView(notes: allNotes);
+              return NotesSearchResultView(
+                notes: allNotes,
+                query: query,
+              );
             } else {
               return const Text('No results');
             }
