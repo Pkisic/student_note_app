@@ -29,28 +29,44 @@ class NotesSearchResultView extends StatelessWidget {
     final List<TextSpan> spans = [];
     var loweredText = text.toLowerCase().replaceAll('\n', ' ');
     var loweredQuery = query.toLowerCase();
-    var start = loweredText.indexOf(loweredQuery);
-    if (start < 0) {
-      return RichText(text: TextSpan(children: [TextSpan(text: text)]));
+    var end = loweredText.length;
+
+    RegExp exp = RegExp(loweredQuery);
+    Iterable<RegExpMatch> matches = exp.allMatches(loweredText);
+
+    var currentIndex = 0;
+    for (var match in matches) {
+      var start = match.start;
+      var end = match.end;
+
+      if (currentIndex < start) {
+        spans.add(
+          TextSpan(
+            text: text.substring(currentIndex, start),
+            style: const TextStyle(color: Colors.white),
+          ),
+        );
+      }
+
+      spans.add(
+        TextSpan(
+          text: text.substring(start, end),
+          style: const TextStyle(color: Colors.amber),
+        ),
+      );
+
+      currentIndex = end;
     }
-    spans.add(
-      TextSpan(
-        text: text.substring(0, start),
-        style: const TextStyle(color: Colors.white),
-      ),
-    );
-    spans.add(
-      TextSpan(
-        text: text.substring(start, start + query.length),
-        style: const TextStyle(color: Colors.amber),
-      ),
-    );
-    spans.add(
-      TextSpan(
-        text: text.substring(start + query.length),
-        style: const TextStyle(color: Colors.white),
-      ),
-    );
+
+    if (currentIndex < end) {
+      spans.add(
+        TextSpan(
+          text: text.substring(currentIndex, end),
+          style: const TextStyle(color: Colors.white),
+        ),
+      );
+    }
+
     return RichText(
       text: TextSpan(
         children: spans,
