@@ -161,7 +161,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text('no data');
+    return const Text('no data');
   }
 
   @override
