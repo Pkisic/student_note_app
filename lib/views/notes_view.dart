@@ -4,6 +4,7 @@ import 'package:diplomski/services/notes_service.dart';
 import 'package:diplomski/views/create_update_note_view.dart';
 import 'package:diplomski/views/notes_list_view.dart';
 import 'package:diplomski/views/notes_search_result_view.dart';
+import 'package:diplomski/views/wysiwyg_editor.dart';
 import 'package:flutter/material.dart';
 
 class NotesView extends StatefulWidget {
@@ -73,6 +74,17 @@ class _NotesViewState extends State<NotesView> {
                       const PopupMenuItem(
                         value: MenuAction.settings,
                         child: Text('Settings'),
+                      ),
+                      PopupMenuItem(
+                        value: MenuAction.wysiwyg,
+                        child: const Text('Wysiwyg editor'),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const WysiwygEditor(),
+                            ),
+                          );
+                        },
                       ),
                     ];
                   },
