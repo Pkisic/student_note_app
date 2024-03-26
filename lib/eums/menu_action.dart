@@ -1,1 +1,1 @@
-enum MenuAction { about, settings, wysiwyg }
+enum MenuAction { about, settings }
